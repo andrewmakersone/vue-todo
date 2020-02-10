@@ -1,13 +1,14 @@
 <template>
   <div>
+
     <ul>
-      <li v-for="(todo, i) in todos" v-bind:index="i" :key="todo.name">
+      <li v-for="(todo, index) in todos" :key="todo.name">
         <span>
           <label>
             <input type="checkbox" @change="todo.completed = !todo.completed">
           </label>
-          <strong>{{todo.id}}.</strong>
-          <span :class="{done: todo.completed}">{{todo.name}}</span>
+          <strong>{{index + 1}}.</strong>
+          <span :class="{done: todo.completed}">{{todo.title | toUppercase}}</span>
         </span>
         <button class="remove-button" @click="$emit('remove-todo', todo.id)">&times;</button>
       </li>
@@ -21,25 +22,17 @@ export default {
   components: {},
   props: ['todos'],
   data () {
-    return {
-      newTask: ''
+    return {}
+  },
+  filters: {
+    toUppercase (value) {
+      return value.toUpperCase()
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  .add-task-input {
-    display: block;
-    font-size: 14px;
-    margin: 25px auto;
-    input, button {
-      padding: 5px;
-    }
-    button {
-      margin-left: -1px;
-    }
-  }
   ul {
     list-style: none;
     margin: 0;
